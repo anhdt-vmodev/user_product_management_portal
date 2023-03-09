@@ -8,6 +8,7 @@ import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 
 import '@aws-amplify/ui-react/styles.css';
+import { Authenticator } from '@aws-amplify/ui-react';
 
 Amplify.configure(awsExports);
 const router = createBrowserRouter(routes);
@@ -17,7 +18,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Authenticator.Provider>
+      <RouterProvider router={router} />
+    </Authenticator.Provider>
   </React.StrictMode>
 );
 

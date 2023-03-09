@@ -4,7 +4,12 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
+import { Amplify } from 'aws-amplify';
+import awsExports from './aws-exports';
 
+import '@aws-amplify/ui-react/styles.css';
+
+Amplify.configure(awsExports);
 const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(

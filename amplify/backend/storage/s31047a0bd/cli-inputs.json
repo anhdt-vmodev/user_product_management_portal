@@ -1,0 +1,18 @@
+{
+  "resourceName": "s31047a0bd",
+  "policyUUID": "1047a0bd",
+  "bucketName": "productmanagement",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

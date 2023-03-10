@@ -1,9 +1,20 @@
+import { Amplify, Hub, Storage } from 'aws-amplify';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import awsExports from './aws-exports';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
+
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import { authEventListener } from 'api/authen/authEventListener';
+import { ConfiguredToaster } from 'components/ConfiguredToaster';
+
+Amplify.configure(awsExports);
+Storage.configure({ track: true });
+Hub.listen('auth', authEventListener);
 
 const router = createBrowserRouter(routes);
 
@@ -12,7 +23,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Authenticator.Provider>
+      <RouterProvider router={router} />
+      <ConfiguredToaster />
+    </Authenticator.Provider>
   </React.StrictMode>
 );
 

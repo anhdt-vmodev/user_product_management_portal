@@ -4,13 +4,15 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
-import { Amplify } from 'aws-amplify';
+import { Amplify, Storage } from 'aws-amplify';
 import awsExports from './aws-exports';
 
 import '@aws-amplify/ui-react/styles.css';
 import { Authenticator } from '@aws-amplify/ui-react';
 
 Amplify.configure(awsExports);
+Storage.configure({ track: true });
+
 const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(

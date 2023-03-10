@@ -13,7 +13,11 @@
     },
     "categories": {
       "auth": {
-        "userproductmanagemend6c167ca": {}
+        "userproductmanagemend6c167ca": {},
+        "userPoolGroups": {}
+      },
+      "storage": {
+        "s31047a0bd": {}
       }
     }
   }

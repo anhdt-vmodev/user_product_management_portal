@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "userproductmanagemend6c167ca_identitypool_d6c167ca",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "userprd6c167ca",
     "userPoolName": "userproductmanagemend6c167ca_userpool_d6c167ca",
     "autoVerifiedAttributes": [
@@ -38,9 +38,29 @@
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "triggers": {},
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+      "test"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": []
   }
 }

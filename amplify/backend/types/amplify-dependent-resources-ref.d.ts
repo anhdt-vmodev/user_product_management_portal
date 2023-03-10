@@ -1,5 +1,8 @@
 export type AmplifyDependentResourcesAttributes = {
   "auth": {
+    "userPoolGroups": {
+      "testGroupRole": "string"
+    },
     "userproductmanagemend6c167ca": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
@@ -8,6 +11,12 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolArn": "string",
       "UserPoolId": "string",
       "UserPoolName": "string"
+    }
+  },
+  "storage": {
+    "s31047a0bd": {
+      "BucketName": "string",
+      "Region": "string"
     }
   }
 }

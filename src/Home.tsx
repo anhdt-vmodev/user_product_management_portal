@@ -4,6 +4,8 @@ import {
   // useAuthenticator,
 } from '@aws-amplify/ui-react';
 import { Auth } from 'aws-amplify';
+import { Header } from 'components/Header';
+import { Layout } from 'components/Layout';
 import { Country, City } from 'country-state-city';
 import { useEffect, useState } from 'react';
 
@@ -106,13 +108,20 @@ const Home = () => {
         },
       }}
       services={services}
+      className="h-screen"
     >
-      {({ signOut, user }) => (
-        <main>
-          <h1>Hello {JSON.stringify(user)}</h1>
-          <button onClick={signOut}>Sign out</button>
-        </main>
-      )}
+      {() => {
+        return (
+          <>
+            <Header />
+            <Layout>
+              <div className="py-8 max-w-4xl mx-auto">
+                <h1 className="text-3xl mb-8">Dashboard</h1>
+              </div>
+            </Layout>
+          </>
+        );
+      }}
     </Authenticator>
   );
 };

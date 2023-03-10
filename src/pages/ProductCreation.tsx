@@ -82,7 +82,7 @@ export default function ProductCreation() {
 
   return (
     <>
-      <Navbar type="loggedin" />
+      <Navbar />
       <Container>
         <form onSubmit={onSubmit}>
           <div className="border p-4 mx-auto my-4 w-[400px] ">

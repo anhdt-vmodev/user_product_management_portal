@@ -40,7 +40,7 @@ export default function Products() {
 
   return (
     <>
-      <Navbar type="loggedin" />
+      <Navbar />
       <Container>
         <div className="text-right">
           <Link to={ROUTES.products.create}>

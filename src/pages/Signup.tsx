@@ -6,12 +6,14 @@ import { Label } from 'components/Label';
 import { Navbar } from 'components/Navbar';
 import { useSignUp } from 'contexts/SignUpContext';
 import { City } from 'country-state-city';
+import { useGuestOnly } from 'hooks/useGuestOnly';
 import { ROUTES } from 'myConstants';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toastError, toastSuccess } from 'utils/toast';
 
 function Signup() {
+  useGuestOnly();
   const {
     cities,
     city,
@@ -113,7 +115,7 @@ function Signup() {
 
   return (
     <>
-      <Navbar type="loggedin" />
+      <Navbar />
       <form onSubmit={handleSubmit}>
         <div className="border p-4 mx-auto my-4 w-[400px]">
           <h2 data-testid="title_signup" className="font-bold mb-6 text-2xl">
@@ -240,7 +242,7 @@ const ConfirmSignUp = ({
     try {
       await Auth.confirmSignUp(username, code);
     } catch (error) {
-      alert(error);
+      toastError('Confirm failed');
     } finally {
       setConfirming(false);
     }
@@ -248,7 +250,7 @@ const ConfirmSignUp = ({
 
   return (
     <div className=" " data-testid="confirm_signup_container">
-      <div className="font-bold ">We Emailed you</div>
+      <div className="font-bold text-xl mb-4">We Emailed you</div>
       <div className=" ">
         Your code is on the way. To log in, enter the code we emailed to &nbsp;
         {encodedEmail}. It may take a minute to arrive.
@@ -261,14 +263,15 @@ const ConfirmSignUp = ({
         }}
         label="Enter your code"
       />
-      <Button
-        isLoading={confirming}
-        onClick={handleConfirm}
-        variation="primary"
-      >
-        Confirm
-      </Button>
-      <Button>Resend Code</Button>
+      <div className="flex justify-center gap-2 mt-5">
+        <Button
+          isLoading={confirming}
+          onClick={handleConfirm}
+          variation="primary"
+        >
+          Confirm
+        </Button>
+      </div>
     </div>
   );
 };

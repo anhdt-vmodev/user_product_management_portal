@@ -1,37 +1,18 @@
-import { Authenticator } from '@aws-amplify/ui-react';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Container } from 'components/Container';
 import { Navbar } from 'components/Navbar';
-import { ROUTES } from 'myConstants';
-import { Navigate } from 'react-router-dom';
 
 const Home = () => {
+  const { user } = useAuthenticator((context) => [context.user]);
   return (
-    <Authenticator
-      initialState="signUp"
-      components={{
-        SignUp: {
-          FormFields() {
-            return (
-              <>
-                <Navigate to={ROUTES.login} />
-              </>
-            );
-          },
-        },
-      }}
-    >
-      {({ signOut, user }) => (
-        <>
-          <Navbar type="loggedin" />
-          <Container>
-            <main>
-              <h1>Hello {user?.username}</h1>
-              <button onClick={signOut}>Sign out</button>
-            </main>
-          </Container>
-        </>
-      )}
-    </Authenticator>
+    <>
+      <Navbar />
+      <Container>
+        <main>
+          <h1>Hello {user?.username}</h1>
+        </main>
+      </Container>
+    </>
   );
 };
 export default Home;

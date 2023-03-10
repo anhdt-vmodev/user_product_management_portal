@@ -16,7 +16,7 @@ export const FilePickers: React.FC<FilePickersProps> = ({
   setFiles,
   images,
   removeFile,
-  multiple = true,
+  multiple = false,
 }) => {
   const [fileValue, setFileValue] = React.useState('');
   return (

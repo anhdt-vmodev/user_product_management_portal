@@ -12,10 +12,6 @@ import { Navigate } from 'react-router-dom';
 
 export const routes = [
   {
-    path: ROUTES.home,
-    element: <Home />,
-  },
-  {
     path: ROUTES.signup,
     element: (
       <SignUpProvider>
@@ -32,8 +28,22 @@ export const routes = [
   {
     path: ROUTES.products.list,
     children: [
-      { path: '', element: <Products /> },
-      { path: ':id', element: <ProductDetail /> },
+      {
+        path: '',
+        element: (
+          <GuardAuth>
+            <Products />
+          </GuardAuth>
+        ),
+      },
+      {
+        path: ':id',
+        element: (
+          <GuardAuth>
+            <ProductDetail />
+          </GuardAuth>
+        ),
+      },
       {
         path: 'create',
         element: (
@@ -43,6 +53,14 @@ export const routes = [
         ),
       },
     ],
+  },
+  {
+    path: ROUTES.home,
+    element: (
+      <GuardAuth>
+        <Home />
+      </GuardAuth>
+    ),
   },
   {
     path: '*',

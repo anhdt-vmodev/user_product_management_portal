@@ -8,6 +8,7 @@ interface FilePickersProps {
   name: string;
   images: File[];
   removeFile: any;
+  multiple?: boolean;
 }
 
 export const FilePickers: React.FC<FilePickersProps> = ({
@@ -15,6 +16,7 @@ export const FilePickers: React.FC<FilePickersProps> = ({
   setFiles,
   images,
   removeFile,
+  multiple = true,
 }) => {
   const [fileValue, setFileValue] = React.useState('');
   return (
@@ -43,13 +45,18 @@ export const FilePickers: React.FC<FilePickersProps> = ({
           if (!filesData) {
             return;
           }
-          setFiles((prev: any) => {
-            const arr = [...prev, ...Array.from(filesData)];
-            const newArr = chain(arr).compact().uniqWith(isEqual).value();
-            return newArr;
-          });
+
+          if (multiple) {
+            setFiles((prev: any) => {
+              const arr = [...prev, ...Array.from(filesData)];
+              const newArr = chain(arr).compact().uniqWith(isEqual).value();
+              return newArr;
+            });
+          } else {
+            setFiles([e.target.files?.[0]]);
+          }
         }}
-        multiple
+        multiple={multiple}
         type="file"
         accept="image/jpeg, image/png"
         name={name}

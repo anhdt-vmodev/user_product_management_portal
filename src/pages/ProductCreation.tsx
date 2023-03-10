@@ -2,8 +2,9 @@ import { Button, TextField } from '@aws-amplify/ui-react';
 import { useCreateProduct } from 'api/useCreateProduct';
 import { Storage } from 'aws-amplify';
 import { Container } from 'components/Container';
+import { FilePickers } from 'components/FilesPicker';
 import { Navbar } from 'components/Navbar';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { toastError } from 'utils/toast';
 
 export type TProduct = {
@@ -16,8 +17,8 @@ export type TProduct = {
 export default function ProductCreation() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [file, setFile] = useState<File>();
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState<File[]>([]);
 
   const { mutation: createProduct } = useCreateProduct();
 
@@ -28,16 +29,20 @@ export default function ProductCreation() {
     [setName]
   );
 
+  const removeFile = useCallback(() => {
+    setImages([]);
+  }, [setImages]);
+
+  const file = useMemo(() => {
+    return images?.[0] || null;
+  }, [images]);
+
   const updateDescription = useCallback(
     (e: any) => {
       setDescription(e.target.value);
     },
     [setDescription]
   );
-
-  function onChange(e: any) {
-    setFile(e.target.files[0]);
-  }
 
   const onSubmit = useCallback(
     async (e: any) => {
@@ -92,7 +97,14 @@ export default function ProductCreation() {
               onChange={updateDescription}
               label="Product Description"
             />
-            <input type="file" onChange={onChange} />
+
+            <FilePickers
+              multiple={false}
+              name="product-image"
+              removeFile={removeFile}
+              images={images}
+              setFiles={setImages}
+            />
             <div className="flex mt-8 justify-center ">
               <Button variation="primary" isLoading={loading} type="submit">
                 Submit
